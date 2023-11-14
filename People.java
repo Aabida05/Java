@@ -1,5 +1,3 @@
-package com.project;
-
 import java.util.Scanner;
 
 class PeopleList {
