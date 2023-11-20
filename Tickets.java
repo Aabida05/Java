@@ -1,4 +1,3 @@
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -18,14 +17,13 @@ public class Tickets {
 		int userOption = 1;
 		Scanner sc = new Scanner(System.in);
 		
-		for(Bus b:buses) {
-			b.displayBusInfo();
-		}
-		
 		while (userOption == 1) {
-			System.out.println("Enter 1 to Book and Enter 2 to exit");
+			System.out.println("Enter 1 to Book and Enter 2 to exit and Enter 3 to view all bookings");
 			userOption = sc.nextInt();
 			if (userOption == 1) {
+					for(Bus b:buses) {
+			b.displayBusInfo();
+		}
 				Booking booking = new Booking();
 				if (booking.isAvailable(bookings, buses)) {
 					bookings.add(booking);
@@ -33,11 +31,26 @@ public class Tickets {
 				} else {
 					System.out.println("Sorry, Bus is full. Try another Bus or Date.");
 				}
-//				System.out.println("Booking...");
+			}else if(userOption == 3){
+				System.out.println("Name \t\t Bus No \t\t Booking Date");
+				System.out.println("-----------------------------------------------------");
+
+				for(int i=0; i<bookings.size(); i++){
+					System.out.println(bookings.get(i).passengerName + "\t\t " + bookings.get(i).busNo + "\t\t\t"
+							+ bookings.get(i).dateInput);
 				}
+				System.out.println("-----------------------------------------------------");
+			}
+		}
+		System.out.println("Enter 1 to Book and Enter 2 to exit and Enter 3 to view all bookings");
+		userOption = sc.nextInt();
+		if (userOption == 1) {
+			for (Bus b : buses) {
+				b.displayBusInfo();
 			}
 		}
 	}
+}
 
 class Bus{
 	private int busNo;
@@ -60,14 +73,14 @@ class Bus{
 		return capacity;
 	}
 	public void setAc(boolean val) {//mutators
-		ac=val;
+		ac = val;
 	}
 	public void setCapacity(int cap) {//mutators
 		capacity = cap;
 	}
 
 public void displayBusInfo() {
-	System.out.println("Bus No:"+busNo+"AC:"+ac+"Total Capacity:"+capacity);
+	System.out.println("Bus No:" + busNo + "  AC:" + ac + "  Total Capacity:" + capacity);
 	}
 
 }
@@ -75,6 +88,7 @@ public void displayBusInfo() {
 class Booking{
 	String passengerName;
 	int busNo;
+	String dateInput;
 	Date date;
 	
 	Booking(){
@@ -84,7 +98,7 @@ class Booking{
 		System.out.println("Enter Bus No: ");
 		busNo=scanner.nextInt();
 		System.out.println("Enter date dd/mm/yyyy: ");
-		String dateInput = scanner.next();
+		 dateInput = scanner.next();
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd/mm/yyy");
 		
 		try {
